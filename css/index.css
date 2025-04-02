@@ -18,3 +18,21 @@
     text-align: center;
     padding: 10px;
 }
+
+
+/* Logo Styling */
+.navbar-brand img {
+    max-width: 50px; /* Adjust logo size */
+    height: auto;
+    border: 2px solid #fff; /* Border around logo */
+    border-radius: 10px; /* Rounded corners */
+    padding: 5px; /* Space around logo */
+    margin-right: 10px; /* Space between logo and company name */
+}
+/* Company Name Styling */
+.company-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;   
+    text-decoration: none;
+}
