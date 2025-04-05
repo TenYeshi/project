@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css ">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS Bundle (Includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <!-- Logo and Company Name -->
+            
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="img/logo.png" alt="logo">
+                <span class="company-name">Company Name</span>
+            </a> 
+
+            <!-- Mobile To  ggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <!-- Button on Navbar -->
+                <a href="#" class="btn btn-primary ms-3">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    slide
+
+    <div class="container mt-3 mb-3 p-3">
+        <div id="imageCarousel" class="carousel slide carousel-fade rounded shadow"
+             data-bs-ride="carousel"
+             data-bs-interval="5000"
+             style="height: 33vh; overflow: hidden;">
+    
+          <!-- Indicators (dots) -->
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="0" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+    
+          <!-- Images -->
+          <div class="carousel-inner h-100">
+            <div class="carousel-item h-100">
+              <img src="img/logo.png" class="d-block w-100 h-100 object-fit-cover" alt="Logo 1">
+            </div>
+            <div class="carousel-item h-100">
+              <img src="img/logo2.png" class="d-block w-100 h-100 object-fit-cover" alt="Logo 2">
+            </div>
+            <div class="carousel-item h-100">
+              <img src="img/logo.png" class="d-block w-100 h-100 object-fit-cover" alt="Logo 3">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    <!-- <div class="container-fluid px-4 py-5 my-5 text-center">
+        <div class="lc-block d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <div class="overflow-hidden" style="max-height: 30vh;">
+                <div class="container px-5">
+                    <h1>hellpo</h1>
+                    <img class="#" alt="Photo by Pankaj Patel" src="img/logo3.jpeg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid px-4 py-5 my-5 text-center">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <div class="overflow-hidden" style="max-height: 30vh;">
+            <div class="container px-5">
+              <h1 class="display-5 fw-bold">Hello</h1>
+              <img 
+                src="img/logo3.jpeg" 
+                alt="Photo by Pankaj Patel" 
+                class="img-fluid border rounded shadow-sm p-2"
+                style="max-height: 200px;"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      
+<section class="hero">
+    <h1>hello</h1>
+    <div class="hero_container">
+        <div class="hero-content">
+            <h1 class="display-4">Welcome to My Website</h1>
+            <p class="lead">Discover amazing things with Bootstrap</p>
+            <a href="#" class="btn btn-primary btn-lg">Get Started</a>
+        </div>
+    </div>
+</section> -->
+
+Features Section 
+
+<div class="container text-center my-5">
+    <h2>Our Features</h2>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card p-3 shadow">
+                <h3>Feature 1</h3>
+                <p>Responsive design with Bootstrap.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card p-3 shadow">
+                <h3>Feature 2</h3>
+                <p>Easy customization with CSS.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 mb-4">
+            <div class="card p-3 shadow">
+                <h3>Feature 3</h3>
+                <p>Modern UI components included.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Responsive Grid Layout 
+<div class="container">
+    <h2 class="text-center">Responsive Grid</h2>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12 bg-primary text-white p-3 text-center">LG: 3 / MD: 4 / SM: 6 / XS: 12</div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12 bg-secondary text-white p-3 text-center">LG: 3 / MD: 4 / SM: 6 / XS: 12</div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12 bg-success text-white p-3 text-center">LG: 3 / MD: 4 / SM: 6 / XS: 12</div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12 bg-danger text-white p-3 text-center">LG: 3 / MD: 4 / SM: 6 / XS: 12</div>
+    </div>  
+</div> -->
+
+ Footer 
+<footer class="footer mt-5">
+    <p>&copy; 2025 My Website. All Rights Reserved.</p>
+</footer> 
+
+
+<script src="js/index.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

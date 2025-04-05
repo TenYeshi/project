@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Random Image Carousel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .object-fit-cover {
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">MySite</a>
+    </div>
+  </nav>
+
+  <!-- Carousel -->
+  <div class="container mt-3 mb-3 p-3">
+    <div id="imageCarousel" class="carousel slide carousel-fade rounded shadow"
+         data-bs-ride="carousel"
+         data-bs-interval="5000"
+         style="height: 33vh; overflow: hidden;">
+
+      <!-- Indicators (dots) -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="0" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+
+      <!-- Images -->
+      <div class="carousel-inner h-100">
+        <div class="carousel-item h-100">
+          <img src="./project/img/logo.png" class="d-block w-100 h-100 object-fit-cover" alt="Logo 1">
+        </div>
+        <div class="carousel-item h-100">
+          <img src="./project/img/logo2.png" class="d-block w-100 h-100 object-fit-cover" alt="Logo 2">
+        </div>
+        <div class="carousel-item h-100">
+          <img src="./project/img/logo.png" class="d-block w-100 h-100 object-fit-cover" alt="Logo 3">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Random Start Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const items = document.querySelectorAll("#imageCarousel .carousel-item");
+      const indicators = document.querySelectorAll("#imageCarousel .carousel-indicators button");
+      const total = items.length;
+      const randomIndex = Math.floor(Math.random() * total);
+
+      items[randomIndex].classList.add("active");
+      indicators[randomIndex].classList.add("active");
+    });
+  </script>
+
+</body>
+</html>

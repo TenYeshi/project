@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bootstrap Dark Mode Toggle (Working)</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    /* Smooth transition */
+    body, .container, .navbar, .card {
+      transition: all 0.3s ease;
+    }
+
+    /* Dark mode styles */
+    .dark-mode {
+      background-color: #121212 !important;
+      color: #f1f1f1 !important;
+    }
+
+    .dark-mode .navbar,
+    .dark-mode .card {
+      background-color: #1e1e1e !important;
+    }
+
+    .dark-mode .form-check-label,
+    .dark-mode .card-text,
+    .dark-mode .card-title {
+      color: #f1f1f1 !important;
+    }
+
+    .toggle-container {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toggle Button -->
+  <div class="toggle-container">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+      <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="container mt-5">
+    <div class="card p-4">
+      <h1 class="card-title">Hello, World!</h1>
+      <p class="card-text">This is a working Bootstrap dark/light mode toggle with smooth UI and full support.</p>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Dark Mode Logic -->
+  <script>
+    const toggle = document.getElementById('darkModeSwitch');
+    const root = document.body;
+
+    // Load dark mode if saved
+    if (localStorage.getItem('theme') === 'dark') {
+      root.classList.add('dark-mode');
+      toggle.checked = true;
+    }
+
+    // Toggle dark mode
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
+        root.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        root.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+
+</body>
+</html>
