@@ -36,3 +36,7 @@
     color: white;   
     text-decoration: none;
 }
+
+.object-fit-cover {
+    object-fit: cover;
+  }
