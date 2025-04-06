@@ -39,4 +39,30 @@
 
 .object-fit-cover {
     object-fit: cover;
+}
+
+/*navbar drak mode*/
+body {
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  .object-fit-cover {
+    object-fit: cover;
+  }
+
+  .navbar-brand img {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--bs-secondary-bg);
+    color: var(--bs-body-color);
+  }
+
+  .dark-toggle {
+    cursor: pointer;
   }

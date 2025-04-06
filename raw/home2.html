@@ -128,24 +128,7 @@
 <!-- AOS Scroll Animation JS -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init();
-
-  // Dark Mode Toggle
-  document.querySelector('.dark-toggle').addEventListener('click', () => {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute("data-bs-theme");
-    html.setAttribute("data-bs-theme", currentTheme === "light" ? "dark" : "light");
-  });
-
-  // Random starting slide
-  document.addEventListener("DOMContentLoaded", function () {
-    const items = document.querySelectorAll("#imageCarousel .carousel-item");
-    const indicators = document.querySelectorAll(".carousel-indicators button");
-    const randomIndex = Math.floor(Math.random() * items.length);
-
-    items[randomIndex].classList.add("active");
-    indicators[randomIndex]?.classList.add("active");
-  });
+  
 </script>
 </body>
 </html>
