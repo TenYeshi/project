@@ -12,12 +12,13 @@
     padding: 20px;
     border-radius: 10px;
 }
-.footer {
-    background: #333;
-    color: white;
+
+/* .footer {
+    background: #ffffff;
+    color: rgb(255, 254, 254);
     text-align: center;
     padding: 10px;
-}
+} */
 
 
 /* Logo Styling */
@@ -45,7 +46,7 @@
 body {
     transition: background-color 0.4s ease, color 0.4s ease;
   }
-
+ 
   .object-fit-cover {
     object-fit: cover;
   }
@@ -59,8 +60,8 @@ body {
   .footer {
     text-align: center;
     padding: 20px;
-    background-color: var(--bs-secondary-bg);
-    color: var(--bs-body-color);
+    background-color: var(--bs-secondary-bg, #000000); /* Default fallback color */
+    color: var(--bs-body-color, #ffffff); /* Default fallback color */
   }
 
   .dark-toggle {
