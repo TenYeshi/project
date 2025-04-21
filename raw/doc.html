@@ -127,56 +127,56 @@
       <i class="fas fa-image"></i> Insert Image
     </button>
   </div>
-  <div id="layer" class="ribbon"></div>
+  <!-- <div id="layer" class="ribbon"></div>
   <div id="review" class="ribbon"></div>
-  <div id="view" class="ribbon"></div>
+  <div id="view" class="ribbon"></div> -->
 
   <div class="editor-container" id="editor" contenteditable="true">Type here...</div>
 
   <script>
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    const ribbons = document.querySelectorAll(".ribbon");
-    const editor = document.getElementById("editor");
+    // const tabButtons = document.querySelectorAll(".tab-btn");
+    // const ribbons = document.querySelectorAll(".ribbon");
+    // const editor = document.getElementById("editor");
 
-    tabButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        ribbons.forEach(r => r.classList.remove("active"));
-        tabButtons.forEach(b => b.classList.remove("active"));
-        const tab = btn.dataset.tab;
-        if (tab) {
-          document.getElementById(tab).classList.add("active");
-          btn.classList.add("active");
-        }
-      });
-    });
+    // tabButtons.forEach(btn => {
+    //   btn.addEventListener("click", () => {
+    //     ribbons.forEach(r => r.classList.remove("active"));
+    //     tabButtons.forEach(b => b.classList.remove("active"));
+    //     const tab = btn.dataset.tab;
+    //     if (tab) {
+    //       document.getElementById(tab).classList.add("active");
+    //       btn.classList.add("active");
+    //     }
+    //   });
+    // });
 
-    document.getElementById("fontFamilySelect").addEventListener("change", function() {
-      document.execCommand("fontName", false, this.value);
-    });
+    // document.getElementById("fontFamilySelect").addEventListener("change", function() {
+    //   document.execCommand("fontName", false, this.value);
+    // });
 
-    const fontSizeInput = document.getElementById("fontSizeInput");
-    fontSizeInput.addEventListener("input", function () {
-      let value = parseInt(this.value);
-      if (!isNaN(value)) {
-        document.execCommand("fontSize", false, "7");
-        const fontTags = editor.getElementsByTagName("font");
-        if (fontTags.length > 0) {
-          fontTags[fontTags.length - 1].removeAttribute("size");
-          fontTags[fontTags.length - 1].style.fontSize = `${value}pt`;
-        }
-      }
-    });
+    // const fontSizeInput = document.getElementById("fontSizeInput");
+    // fontSizeInput.addEventListener("input", function () {
+    //   let value = parseInt(this.value);
+    //   if (!isNaN(value)) {
+    //     document.execCommand("fontSize", false, "7");
+    //     const fontTags = editor.getElementsByTagName("font");
+    //     if (fontTags.length > 0) {
+    //       fontTags[fontTags.length - 1].removeAttribute("size");
+    //       fontTags[fontTags.length - 1].style.fontSize = `${value}pt`;
+    //     }
+    //   }
+    // });
 
-    window.addEventListener("load", () => {
-      if (!fontSizeInput.value) {
-        fontSizeInput.value = 12;
-        document.execCommand("fontSize", false, "3");
-      }
-    });
+    // window.addEventListener("load", () => {
+    //   if (!fontSizeInput.value) {
+    //     fontSizeInput.value = 12;
+    //     document.execCommand("fontSize", false, "3");
+    //   }
+    // });
 
-    document.getElementById("textColorPicker").addEventListener("input", function() {
-      document.execCommand("foreColor", false, this.value);
-    });
+    // document.getElementById("textColorPicker").addEventListener("input", function() {
+    //   document.execCommand("foreColor", false, this.value);
+    // });
 
     const imageInput = document.getElementById("imageInput");
     imageInput.addEventListener("change", function () {
@@ -284,41 +284,41 @@ function makeDraggable(element, options = {}) {
   });
 }
 
+// Initialize Quill editor
+const quill = new Quill('#editor', {
+  theme: 'snow',
+  modules: {
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['link', 'image'],
+      ['clean']
+    ]
+  }
+});
+// Add custom image handler
+quill.getModule('toolbar').addHandler('image', () => {
+  const input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.click();
+
+  input.onchange = () => {
+    const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const range = quill.getSelection();
+        quill.insertEmbed(range.index, 'image', reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+});     
   </script>
-</body>
-</html>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  // Initialize Quill editor
-  const quill = new Quill('#editor', {
-    theme: 'snow',
-    modules: {
-      toolbar: [
-        [{ 'header': [1, 2, false] }],
-        ['bold', 'italic', 'underline'],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        ['link', 'image'],
-        ['clean']
-      ]
-    }
-  });
-  // Add custom image handler
-  quill.getModule('toolbar').addHandler('image', () => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
 
-    input.onchange = () => {
-      const file = input.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const range = quill.getSelection();
-          quill.insertEmbed(range.index, 'image', reader.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    };
-  });     
+</body>
+</html>
