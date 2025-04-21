@@ -159,6 +159,14 @@
       <option value="id-card">ID Card (86×54mm)</option>
       <option value="custom">Custom (px)</option>
     </select>
+
+    <label for="orientationSelect" class="ms-3">Page Orientation:</label>
+    <select id="orientationSelect">
+      <option value="portrait" selected>Portrait</option>
+      <option value="landscape">Landscape</option>
+    </select>
+
+
     <button class="btn btn-primary" id="openMarginModal" data-bs-toggle="modal" data-bs-target="#marginModal">
       <i class="fas fa-arrows-alt-v"></i> Change Margins
     </button>
@@ -237,10 +245,20 @@
 
 
     function applySizeAndMargins(width, height) {
+
+      function applySizeAndMargins(width, height) {
+        const orientation = document.getElementById("orientationSelect").value;
+        if (orientation === "landscape") {
+          [width, height] = [height, width]; // swap dimensions
+          }
+        editorContainer.style.width = `${width + 20}px`;
+        editorContainer.style.height = `${height + 20}px`;
+      }
+
       editorContainer.style.width = `${width + 20}px`; // 20 for padding/border
       editorContainer.style.height = `${height + 20}px`; 
     }
-
+    
     function applyMargins() {
       editor.style.paddingTop = modalMarginTop.value + "px";
       editor.style.paddingRight = modalMarginRight.value + "px";
@@ -261,17 +279,40 @@
       }, 300);
     }
 
-    sizeSelect.addEventListener("change", () => {
-      const val = sizeSelect.value;
-      if (val === "custom") {
-        customInputs.style.display = "inline-flex";
-        applySizeAndMargins(parseInt(customWidth.value), parseInt(customHeight.value));
-      } else {
-        customInputs.style.display = "none";
-        const size = sizes[val];
-        applySizeAndMargins(size.width, size.height);
-      }
-    });
+    
+
+    function updatePageSizeAndOrientation() {
+  const val = sizeSelect.value;
+  const orientation = document.getElementById("orientationSelect").value;
+
+  let width, height;
+
+  if (val === "custom") {
+    customInputs.style.display = "inline-flex";
+    width = parseInt(customWidth.value);
+    height = parseInt(customHeight.value);
+  } else {
+    customInputs.style.display = "none";
+    const size = sizes[val];
+    width = size.width;
+    height = size.height;
+  }
+
+  if (orientation === "landscape") {
+    [width, height] = [height, width];
+  }
+
+  applySizeAndMargins(width, height);
+}
+
+sizeSelect.addEventListener("change", updatePageSizeAndOrientation);
+document.getElementById("orientationSelect").addEventListener("change", updatePageSizeAndOrientation);
+
+[customWidth, customHeight].forEach(el =>
+  el.addEventListener("input", updatePageSizeAndOrientation)
+);
+
+
 
     [customWidth, customHeight].forEach(el =>
       el.addEventListener("input", () =>
