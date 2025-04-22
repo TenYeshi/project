@@ -115,6 +115,7 @@
 
 <button id="insertBtn">Insert</button>
 <button id="editImageBtn" style="display: none;">Edit Image</button>
+
 <div id="editor-container"></div>
 <input type="file" id="imageInput" accept="image/*" />
 
@@ -141,8 +142,8 @@
   const deleteShapeBtn = document.getElementById("deleteShapeBtn");
 
   let currentShape = null; // To track the selected shape with image
-
-  insertBtn.addEventListener("click", () => {
+  
+    insertBtn.addEventListener("click", () => {
     const shape = document.createElement("div");
     shape.className = "shape";
     container.appendChild(shape);
