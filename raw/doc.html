@@ -100,7 +100,7 @@
     </div>
   </header>
 
-  <div id="home" class="ribbon active">
+  <!-- <div id="home" class="ribbon active">
     <button onclick="document.execCommand('undo')" title="Undo"><i class="fas fa-undo"></i></button>
     <button onclick="document.execCommand('redo')" title="Redo"><i class="fas fa-redo"></i></button>
     <select id="fontFamilySelect" title="Font">
@@ -119,7 +119,7 @@
     <button onclick="document.execCommand('justifyCenter')" title="Align Center"><i class="fas fa-align-center"></i></button>
     <button onclick="document.execCommand('justifyRight')" title="Align Right"><i class="fas fa-align-right"></i></button>
     <button onclick="document.execCommand('justifyFull')" title="Justify"><i class="fas fa-align-justify"></i></button>
-  </div>
+  </div> -->
 
   <div id="insert" class="ribbon">
     <input type="file" id="imageInput" accept="image/*" style="display:none" />
@@ -134,49 +134,49 @@
   <div class="editor-container" id="editor" contenteditable="true">Type here...</div>
 
   <script>
-    // const tabButtons = document.querySelectorAll(".tab-btn");
-    // const ribbons = document.querySelectorAll(".ribbon");
-    // const editor = document.getElementById("editor");
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const ribbons = document.querySelectorAll(".ribbon");
+    const editor = document.getElementById("editor");
 
-    // tabButtons.forEach(btn => {
-    //   btn.addEventListener("click", () => {
-    //     ribbons.forEach(r => r.classList.remove("active"));
-    //     tabButtons.forEach(b => b.classList.remove("active"));
-    //     const tab = btn.dataset.tab;
-    //     if (tab) {
-    //       document.getElementById(tab).classList.add("active");
-    //       btn.classList.add("active");
-    //     }
-    //   });
-    // });
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        ribbons.forEach(r => r.classList.remove("active"));
+        tabButtons.forEach(b => b.classList.remove("active"));
+        const tab = btn.dataset.tab;
+        if (tab) {
+          document.getElementById(tab).classList.add("active");
+          btn.classList.add("active");
+        }
+      });
+    });
 
-    // document.getElementById("fontFamilySelect").addEventListener("change", function() {
-    //   document.execCommand("fontName", false, this.value);
-    // });
+    document.getElementById("fontFamilySelect").addEventListener("change", function() {
+      document.execCommand("fontName", false, this.value);
+    });
 
-    // const fontSizeInput = document.getElementById("fontSizeInput");
-    // fontSizeInput.addEventListener("input", function () {
-    //   let value = parseInt(this.value);
-    //   if (!isNaN(value)) {
-    //     document.execCommand("fontSize", false, "7");
-    //     const fontTags = editor.getElementsByTagName("font");
-    //     if (fontTags.length > 0) {
-    //       fontTags[fontTags.length - 1].removeAttribute("size");
-    //       fontTags[fontTags.length - 1].style.fontSize = `${value}pt`;
-    //     }
-    //   }
-    // });
+    const fontSizeInput = document.getElementById("fontSizeInput");
+    fontSizeInput.addEventListener("input", function () {
+      let value = parseInt(this.value);
+      if (!isNaN(value)) {
+        document.execCommand("fontSize", false, "7");
+        const fontTags = editor.getElementsByTagName("font");
+        if (fontTags.length > 0) {
+          fontTags[fontTags.length - 1].removeAttribute("size");
+          fontTags[fontTags.length - 1].style.fontSize = `${value}pt`;
+        }
+      }
+    });
 
-    // window.addEventListener("load", () => {
-    //   if (!fontSizeInput.value) {
-    //     fontSizeInput.value = 12;
-    //     document.execCommand("fontSize", false, "3");
-    //   }
-    // });
+    window.addEventListener("load", () => {
+      if (!fontSizeInput.value) {
+        fontSizeInput.value = 12;
+        document.execCommand("fontSize", false, "3");
+      }
+    });
 
-    // document.getElementById("textColorPicker").addEventListener("input", function() {
-    //   document.execCommand("foreColor", false, this.value);
-    // });
+    document.getElementById("textColorPicker").addEventListener("input", function() {
+      document.execCommand("foreColor", false, this.value);
+    });
 
     const imageInput = document.getElementById("imageInput");
     imageInput.addEventListener("change", function () {

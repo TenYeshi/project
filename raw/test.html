@@ -7,6 +7,8 @@
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -183,6 +185,8 @@
   </header>
 
   <div id="home" class="ribbon active">
+    
+    <!-- font family -->
     <button onclick="document.execCommand('undo')" title="Undo"><i class="fas fa-undo"></i></button>
     <button onclick="document.execCommand('redo')" title="Redo"><i class="fas fa-redo"></i></button>
     <select id="fontFamilySelect" title="Font">
@@ -193,7 +197,11 @@
       <option value="Times New Roman" style="font-family: Times New Roman">Times New Roman</option>
       <option value="Verdana" style="font-family: Verdana">Verdana</option>
     </select>
+
+    <!-- Add the font size input element in the Home ribbon -->
+    <label for="fontSizeInput" class="ms-3">Size:</label>
     <input type="number" id="fontSizeInput" placeholder="Size" title="Font Size" min="6" max="72" style="width:70px;" />
+    <label for="fontSizeInput" class="ms-3">Color</label>
     <input type="color" id="textColorPicker" title="Text Color">
     <button onclick="document.execCommand('bold')" title="Bold"><i class="fas fa-bold"></i></button>
     <button onclick="document.execCommand('italic')" title="Italic"><i class="fas fa-italic"></i></button>
@@ -206,7 +214,7 @@
   <div id="insert" class="ribbon">
     <input type="file" id="imageInput" accept="image/*" style="display:none" />
     <button onclick="document.getElementById('imageInput').click()" title="Insert Image">
-      <i class="fas fa-image"></i> Insert Image
+      <i class="fas fa-image"></i>  Insert Image
     </button>
   </div>
 
@@ -239,15 +247,50 @@
     </div>
   </div>
 
-  <div class="editor-container size-a4">
+  <div class="editor-container">
     <div class="page-area" id="editor" contenteditable="true">
       Type here...
+    </div>
+  </div>
+
+  <div class="modal fade" id="marginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Adjust Page Margins</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="modalMarginTop" class="form-label">Top Margin (px)</label>
+            <input type="number" id="modalMarginTop" class="form-control" value="10" min="0">
+          </div>
+          <div class="mb-3">
+            <label for="modalMarginBottom" class="form-label">Bottom Margin (px)</label>
+            <input type="number" id="modalMarginBottom" class="form-control" value="10" min="0">
+          </div>
+          <div class="mb-3">
+            <label for="modalMarginLeft" class="form-label">Left Margin (px)</label>
+            <input type="number" id="modalMarginLeft" class="form-control" value="10" min="0">
+          </div>
+          <div class="mb-3">
+            <label for="modalMarginRight" class="form-label">Right Margin (px)</label>
+            <input type="number" id="modalMarginRight" class="form-control" value="10" min="0">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="applyMarginChanges">Apply</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
 
     // Handle home tab aned in  sert tab
+    const fontSizeInput = document.getElementById("fontSizeInput");
+
     const tabButtons = document.querySelectorAll(".tab-btn");
     const ribbons = document.querySelectorAll(".ribbon");
     const editor = document.getElementById("editor");
@@ -266,7 +309,6 @@
     const modalMarginLeft = document.getElementById("modalMarginLeft");
 
 
-
     tabButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         ribbons.forEach(r => r.classList.remove("active"));
@@ -279,10 +321,22 @@
       });
     });
 
-    // Handle font size change
     document.getElementById("fontFamilySelect").addEventListener("change", function() {
       document.execCommand("fontName", false, this.value);
     });
+
+    fontSizeInput.addEventListener("input", function () {
+      let value = parseInt(this.value);
+      if (!isNaN(value)) {
+        document.execCommand("fontSize", false, "7");
+        const fontTags = editor.getElementsByTagName("font");
+        if (fontTags.length > 0) {
+          fontTags[fontTags.length - 1].removeAttribute("size");
+          fontTags[fontTags.length - 1].style.fontSize = `${value}pt`;
+        }
+      }
+    });
+
 
     // Handle font size change
     window.addEventListener("load", () => {
@@ -292,11 +346,12 @@
       }
     });
 
-    // Handle font size change
+    // Handle font color change
     document.getElementById("textColorPicker").addEventListener("input", function() {
       document.execCommand("foreColor", false, this.value);
     });
-
+    
+    
     // Handle change in page size
     const sizes = {
       a4: { width: 794, height: 1123 },
@@ -306,20 +361,14 @@
     };
 
     function applySizeAndMargins(width, height) {
-      
-      function applySizeAndMargins(width, height) {
-        const orientation = document.getElementById("orientationSelect").value;
-        if (orientation === "landscape") {
-          [width, height] = [height, width]; // swap dimensions
-        }
-        editorContainer.style.width = `${width + 20}px`;
-        editorContainer.style.height = `${height + 20}px`;
+      const orientation = document.getElementById("orientationSelect").value;
+      if (orientation === "landscape") {
+        [width, height] = [height, width];
       }
-      
-      editorContainer.style.width = `${width + 20}px`; // 20 for padding/border
-      editorContainer.style.height = `${height + 20}px`; 
-      
+      editorContainer.style.width = `${width + 40}px`;  // add more buffer if needed
+      editorContainer.style.height = `${height + 40}px`;
     }
+
 
     function applyMargins() {
       editor.style.paddingTop = modalMarginTop.value + "px";
@@ -382,17 +431,50 @@
       applyMargins();
       $('#marginModal').modal('hide');
     });
-
+    
+    
     window.addEventListener("DOMContentLoaded", () => {
-      const size = sizes["a4"];
-      applySizeAndMargins(size.width, size.height);
+      updatePageSizeAndOrientation();
+    });
+    
+    sizeSelect.addEventListener("change", () => {
+      const selected = sizeSelect.value;
+      if (selected === "custom") {
+        customInputs.style.display = "flex";
+        applySizeAndMargins(parseInt(customWidth.value), parseInt(customHeight.value));
+      } else {
+        customInputs.style.display = "none";
+        const { width, height } = sizes[selected];
+        applySizeAndMargins(width, height);
+      }
+    });
+
+    window.addEventListener('load', () => {
+      updatePageSize(); 
+      applyMargins();
+      // Set the default font size if the input value is empty
+      if (!fontSizeInput.value) {
+        fontSizeInput.value = 12;
+      }
+      
+      // Apply the default font size to the body or editor on load
+      document.querySelector('.editor').style.fontSize = fontSizeInput.value + 'px';
+      
     });
 
     
 
 
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 
